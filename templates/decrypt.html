@@ -16,14 +16,14 @@
         <h2>Decrypt Your File</h2>
         <form method="post" enctype="multipart/form-data" action="/decrypt">
             <div>
-                <label>Encrypted file:</label>
+                <label>Encrypted file (.enc) :</label>
                 <input type="file" name="enc_file" required>
             </div>
             <div>
-                <label>Key file (.txt):</label>
-                <input type="file" name="key_file" required>
+                <label>Enter passphrase:</label>
+                <input type="password" name="password" required>
             </div>
-            <input type="submit" value="Decrypt">
+            <input type="submit" value="Decrypt & Download">
             {% if error %}<p class="error">{{ error }}</p>{% endif %}
         </form>
     </div>

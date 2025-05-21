@@ -1,73 +1,73 @@
 from flask import Flask, render_template, request, send_file
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.backends import default_backend
+import base64
 import os
+import io
 
 app = Flask(__name__)
-app.config['Upload_Folder'] = 'uploads'
-app.config['Encrypted_Folder'] = 'encrypted'
 
-os.makedirs(app.config['Upload_Folder'], exist_ok=True)
-os.makedirs(app.config['Encrypted_Folder'], exist_ok=True)
+def derive_key(passphrase, salt):
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=100_000,
+        backend=default_backend()
+    )
+    return base64.urlsafe_b64encode(kdf.derive(passphrase.encode()))
 
 @app.route('/', methods=['GET','POST'])
 
 def index():
     if request.method == 'POST':
-        uploaded_file = request.files['file']
-        password = request.form['password']
+        uploaded_file = request.files.get('file')
+        passphrase = request.form.get('password')
 
-        if uploaded_file and password:
-            file_path = os.path.join(app.config['Upload_Folder'], uploaded_file.filename)
-            uploaded_file.save(file_path)
-
-            with open(file_path, 'rb') as f:
-                data = f.read()
-
-            key = Fernet.generate_key()
+        if uploaded_file and passphrase:
+            salt = os.urandom(16)
+            key = derive_key(passphrase, salt)
             fernet = Fernet(key)
+
+            data = uploaded_file.read()
             encrypted_data = fernet.encrypt(data)
 
-            encrypted_path = os.path.join(app.config['Encrypted_Folder'], uploaded_file.filename + '.enc')
-            with open(encrypted_path, 'wb') as f:
-                f.write(encrypted_data) 
+            final_data = salt + encrypted_data
 
-            key_filename = uploaded_file.filename + '_key.txt'
-            key_path = os.path.join(app.config['Encrypted_Folder'], key_filename)
-            
-            with open(key_path, 'wb') as key_file:
-                key_file.write(key)
+            encrypted_output = io.BytesIO(final_data)
+            encrypted_output.seek(0)
 
-            return send_file(key_path, as_attachment=True)
+            filename = uploaded_file.filename + '.enc'
+            return send_file(encrypted_output, as_attachment=True, download_name = filename)
+
     return render_template('index.html')
 
 @app.route('/decrypt', methods=['GET','POST'])
 def decrypt():
     if request.method == 'POST':
-        enc_file = request.files['enc_file']
-        key_file = request.files['key_file']
+        enc_file = request.files.get('enc_file')
+        passphrase = request.form.get('password')
 
-        if enc_file and key_file:
-            encrypted_path = os.path.join(app.config['Encrypted_Folder'], enc_file.filename)
-            enc_file.save(encrypted_path)
+        if enc_file and passphrase:
+            encrypted_content = enc_file.read()
+            salt = encrypted_content[:16]
+            encrypted_data = encrypted_content[16:]
 
-            key = key_file.read()
+            key = derive_key(passphrase, salt)
             fernet = Fernet(key)
-
-            with open(encrypted_path, 'rb') as f:
-                encrypted_data = f.read()
 
             try:
                 decrypted_data = fernet.decrypt(encrypted_data)
             except Exception:
-                return render_template('decrypt.html',error="Invalid key or corrupted file!")
+                return render_template('decrypt.html', error="Invalid passphrase or corrupted file! ")
 
-            original_filename = enc_file.filename.replace('.enc', '')
-            decrypted_path = os.path.join(app.config['Upload_Folder'], 'decrypted_' + original_filename)
+            output = io.BytesIO(decrypted_data)
+            output.seek(0)
 
-            with open(decrypted_path, 'wb') as f:
-                f.write(decrypted_data)
-
-            return send_file(decrypted_path, as_attachment=True)
+            original_filename = enc_file.filename.replace('.enc','')
+            return send_file(output, as_attachment=True, download_name='decrypted_' + original_filename)
 
     return render_template('decrypt.html')
 
