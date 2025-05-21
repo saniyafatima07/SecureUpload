@@ -19,8 +19,11 @@ def derive_key(passphrase, salt):
     )
     return base64.urlsafe_b64encode(kdf.derive(passphrase.encode()))
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/', methods=['GET'])
+def home():
+    return render_template('home.html')
 
+@app.route('/index', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         uploaded_file = request.files.get('file')

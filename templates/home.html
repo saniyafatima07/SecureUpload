@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/index.css">
+    <title>SecureUpload</title>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/index">Encrypt</a>
+        <a href="/decrypt">Decrypt</a>
+    </nav>
+    <div class="home-content">
+        <h1 style="text-align: left; font-size: 2.2em ; color: #4caf50;"> SecureUpload</h1>
+        <p class="description">
+            <b>SecureUpload</b> is a powerful encryption tool that uses advanced cryptographic principles to ensure your files remain completely private.
+            The encryption process happens entirely in your browser - it never stores your files or passphrases.
+        </p><br>
+        
+        <h2 style="text-align: left;color: #4caf50;">Security Features</h2>
+        <ul class="feature-list">
+            <li>Uses <b>AES-256</b> encryption with Fernet (symmetric authenticated cryptography)</li>
+            <li>Implements secure <b>Base64</b> encoding for key generation</li>
+            <li>Employs <b>PBKDF2</b> key derivation with 100,000 iterations to protect against brute force attacks</li>
+            <li>Generates a unique <b>salt</b> (random bytes) for each encryption to ensure security</li>
+        </ul><br>
+        
+        <h2 style="text-align: left;color: #4caf50;">Encryption Process</h2>
+        <div class="flow-chart">
+            <div class="flow-step">
+                <div class="flow-step-text">Upload your file and enter a strong passphrase</div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-text">Unique salt is generated for your key</div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-text">File encrypted with Fernet/AES</div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-text">Salt prepended to encrypted file</div>
+            </div>
+            <div class="flow-step">
+                <div class="flow-step-text">Download your secured .enc file</div>
+            </div>
+</body>
+</html>
