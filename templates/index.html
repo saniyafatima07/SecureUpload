@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Upload</title>
+</head>
+
+<body>
+    <h1>Encrypt your file and share it securely!</h1>
+    <form method="post" enctype="multipart/form-data" action="/">
+        <div>
+            <label>Select file:</label><br>
+            <input type="file" name="file" required>
+        </div>
+        <div>
+            <label>Enter a strong passphrase:</label><br>
+            <input type="password" name="password" required>
+        </div>
+            <input type="submit" value="Encrypt and Upload">
+    </form>
+</body>
+
+</html>

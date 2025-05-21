@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decrypt</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data" action="/decrypt">
+    <h2>Decrypt ur File</h2>
+        <div>
+            <label>Encrypted file: </label><br>
+            <input type="file" name="enc_file" required>
+        </div>
+        <div>
+            <label>Key file (.txt):</label><br>
+            <input type="file" name="key_file" required>
+        </div>
+            <input type="submit" value="Decrypt">
+    </form>
+</body>
+</html>
