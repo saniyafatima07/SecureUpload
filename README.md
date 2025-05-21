@@ -1,7 +1,5 @@
 # SecureUpload
 
-## Overview
-
 This Flask web application allows users to securely encrypt and decrypt files using a passphrase. The encryption key is derived from the user-provided passphrase using PBKDF2 with a random salt, ensuring stronger security.
 
 Users can:
