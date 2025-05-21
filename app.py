@@ -59,7 +59,7 @@ def decrypt():
             try:
                 decrypted_data = fernet.decrypt(encrypted_data)
             except Exception:
-                return "Invalid key or corrupted file!"
+                return render_template('decrypt.html',error="Invalid key or corrupted file!")
 
             original_filename = enc_file.filename.replace('.enc', '')
             decrypted_path = os.path.join(app.config['Upload_Folder'], 'decrypted_' + original_filename)

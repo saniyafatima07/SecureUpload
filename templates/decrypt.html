@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/index.css">
     <title>Decrypt</title>
 </head>
 <body>
-    <form method="post" enctype="multipart/form-data" action="/decrypt">
-    <h2>Decrypt ur File</h2>
-        <div>
-            <label>Encrypted file: </label><br>
-            <input type="file" name="enc_file" required>
-        </div>
-        <div>
-            <label>Key file (.txt):</label><br>
-            <input type="file" name="key_file" required>
-        </div>
+    <nav>
+        <a href="/">Encrypt</a> 
+        <a href="/decrypt">Decrypt</a>
+    </nav>
+    <div class="container">
+        <div class="icon">🔓</div>
+        <h2>Decrypt Your File</h2>
+        <form method="post" enctype="multipart/form-data" action="/decrypt">
+            <div>
+                <label>Encrypted file:</label>
+                <input type="file" name="enc_file" required>
+            </div>
+            <div>
+                <label>Key file (.txt):</label>
+                <input type="file" name="key_file" required>
+            </div>
             <input type="submit" value="Decrypt">
-    </form>
+            {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        </form>
+    </div>
 </body>
 </html>
