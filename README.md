@@ -18,4 +18,4 @@ Users can:
 
 ## Disclaimer
 
-Kindly remember your passphrase without which you could not be able to decrypt your file.
+Please remember your passphrase, as it is required to decrypt your file.
