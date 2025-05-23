@@ -1,2 +1,4 @@
 templates/** linguist-vendored
+static/** linguist-vendored
 templates/home.html linguist-vendored=false
+*.css linguist-generated
