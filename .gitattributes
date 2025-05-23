@@ -1,2 +1,2 @@
 templates/** linguist-vendored
-home.html linguist-vendored
+templates/home.html linguist-vendored=false
