@@ -20,17 +20,14 @@ Users can:
 ```bash
 git clone https://github.com/saniyafatima07/SecureUpload.git
 ```
-
 **2. Direct to the repository:**
 ```bash
 cd SecureUpload
 ```
-
 **3. Create virtual environment:**
 ```bash
 python3 -m venv venv
 ```
-
 **3. Activate virtual environment:**
 
 Linux/macOS:
@@ -45,14 +42,11 @@ Windows:
 ```bash
 pip install -r requirements.txt
 ```
-
 **5. Run the application**
 ```bash
 python app.py
 ```
 Once the application is running, open your browser and navigate to: http://127.0.0.1:5000/
-
-
 
 ## Features
 
