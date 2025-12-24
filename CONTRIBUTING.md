@@ -34,28 +34,35 @@ Ensure invalid or unsupported files are handled securely.
 Follow these steps to contribute code:
 
 1. Fork the Repository
-2. Click the Fork button on the top right of the repository page.
-3. Create a New Branch
+   
+3. Click the Fork button on the top right of the repository page.
+   
+5. Create a New Branch
 ```bash
 git checkout -b feature/your-feature-name
 ```
+
 4. Make Changes
-5. Write clean, well-documented code and ensure existing functionality is not broken.
-6. Commit Changes
+   
+6. Write clean, well-documented code and ensure existing functionality is not broken.
+   
+8. Commit Changes
 ```bash
 git commit -m "Add meaningful commit message"
 ```
+
 7. Push to Your Branch
 ```bash
 git push origin feature/your-feature-name
 ```
+
 8. Submit a Pull Request
-  Go to the original repository and click New Pull Request.
-  Provide a clear description of the changes you’ve made.
+  - Go to the original repository and click New Pull Request.
+  - Provide a clear description of the changes you’ve made.
 
-🧑‍💻 Code Style Guidelines
+### Code Style Guidelines
 
-Follow consistent JavaScript/TypeScript coding standards used in the project.
-Use meaningful variable and function names.
-Ensure code is modular and well-commented.
-Pay special attention to security-related logic.
+- Follow consistent JavaScript/TypeScript coding standards used in the project.  
+- Use meaningful variable and function names.  
+- Ensure code is modular and well-commented.  
+- Pay special attention to security-related logic.  
